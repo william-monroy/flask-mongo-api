@@ -1,9 +1,10 @@
 from flask import Flask, request
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
+from keys.api import string_conn
 
 app = Flask(__name__)
-app.config['MONGO_URI']='mongodb+srv://admin:NnolascO123@cluster0.3i7nq.mongodb.net/Pruebas?retryWrites=true&w=majority'
+app.config['MONGO_URI']= string_conn
 
 mongo = PyMongo(app)
 
