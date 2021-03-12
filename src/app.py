@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from werkzeug.security import generate_password_hash, check_password_hash
 from keys.api import string_conn
@@ -29,10 +29,18 @@ def create_user():
         }
         return response
     else:
-        {'mensaje':'error - datos invalidos'}
+        return not_found()
 
     return {'mensaje':'recibido'}
 
+@app.errorhandler(404)
+def not_found(error=None):
+    response = jsonify({
+        'mensaje': 'No se encontro: ' + request.url,
+        'status': 404
+    })
+    response.status_code = 404
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
